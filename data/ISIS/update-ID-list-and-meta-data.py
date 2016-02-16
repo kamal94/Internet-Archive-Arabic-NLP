@@ -1,5 +1,6 @@
 import internetarchive as ia
 import json
+from time import gmtime, strftime
 
 # searches for the term and returns search results not in exisitingIDs
 def findNewIDs(searchTerm, existingIDs):
@@ -27,7 +28,7 @@ def downloadMetaFiles(IDs):
     print("Successefully downloaded " + str(len(IDs)) + " metadatas!")
 
 
-# read existing IDs from the 
+# read existing IDs from the ID file
 IDFile = open("existingIDs.txt", 'r')
 existingIDs = []
 for line in IDFile:
@@ -45,3 +46,14 @@ downloadMetaFiles(newIDs)
 IDFile = open("existingIDs.txt", 'a')
 for ID in newIDs:
 	IDFile.write(ID+"\n")
+
+#log what has been added
+logFile = open("logfile", 'a')
+logFile.write(strftime("%Y-%m-%d %H:%M:%S", gmtime()) + " " + str(len(newIDs)) + " new IDs found.")
+if(len(newIDs) > 0):
+	for ID in newIDs:
+		logFile.write("\t" + ID + "\n")
+else:
+	logFile.write("\n")
+logFile.write("********")
+logFile.close()
