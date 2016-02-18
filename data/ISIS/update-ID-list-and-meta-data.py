@@ -15,7 +15,6 @@ def findNewIDs(searchTerm, existingIDs):
 
 # saves metadata in /metadata/IDNAME.txt
 def downloadMetaFiles(IDs):
-    
     print("Downloading " + str(len(IDs)) + " item metadatas...")
     count = 1
     for ID in IDs:
