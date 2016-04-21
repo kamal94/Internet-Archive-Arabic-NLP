@@ -1,0 +1,117 @@
+##########################################
+testing language recognition by title
+******************************************
+results for titles
+ar: 992
+es: 1
+hu: 1
+en: 29
+af: 1
+fa: 3
+sk: 1
+sq: 2
+de: 1
+ru: 1
+vi: 1
+ro: 1
+sw: 3
+id: 7
+et: 1
+error: 6
+fi: 2
+tl: 1
+so: 14
+ca: 2
+da: 1
+fr: 1
+hr: 1
+pt: 1
+cy: 3
+##########################################
+testing language recognition by subject
+******************************************
+results for subject
+ar: 887
+sw: 1
+en: 11
+et: 1
+error: 118
+fa: 3
+fi: 1
+so: 40
+ca: 2
+ur: 1
+af: 1
+hr: 1
+tl: 2
+de: 1
+it: 1
+cy: 2
+id: 3
+no: 1
+##########################################
+testing language recognition by description
+******************************************
+results for description
+ar: 837
+af: 1
+en: 157
+ro: 17
+error: 34
+fi: 1
+cy: 16
+fa: 1
+so: 9
+ca: 4
+##########################################
+testing language recognition by title and subject
+******************************************
+results for title and subject
+ar: 1020
+ru: 1
+error: 3
+en: 16
+tl: 1
+cy: 1
+pt: 1
+fa: 1
+so: 32
+ca: 1
+##########################################
+testing language recognition by title and description
+******************************************
+results for title and description
+ar: 890
+ru: 1
+en: 145
+ro: 10
+error: 3
+cy: 16
+so: 10
+ca: 2
+##########################################
+testing language recognition by subject and description
+******************************************
+results for subject and description
+ur: 1
+ar: 875
+en: 130
+ro: 2
+error: 12
+fi: 1
+ca: 4
+fa: 1
+so: 34
+cy: 17
+##########################################
+testing language recognition by subject and title and description
+******************************************
+results for subject and title and description
+ar: 899
+en: 121
+ro: 2
+error: 3
+cy: 15
+so: 34
+ca: 3
+
