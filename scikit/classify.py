@@ -4,6 +4,9 @@ import random
 import pickle
 import sys, getopt
 
+DEFAULT_POS_DIRECTORY = "data/metadata/ISIS"
+DEFAULT_NEG_DIRECTORY = "data/metadata/non-isis"
+
 classifierFileName = None;
 dataSetFileName = None
 #parse arguments
@@ -85,8 +88,8 @@ def getFeaturesWithLabel(metadata:dict, label:str):
 		for item in metadata ]]]
 
 if dataSetFileName==None:
-	posMeta  = iavw.readMetaTextInDirectory("data/metadata/ISIS")
-	negMeta = iavw.readMetaTextInDirectory("data/metadata/non-isis")
+	posMeta  = iavw.readMetaTextInDirectory(DEFAULT_POS_DIRECTORY)
+	negMeta = iavw.readMetaTextInDirectory(DEFAULT_NEG_DIRECTORY)
 
 	posSet = getFeaturesWithLabel(posMeta, 'isis')
 	negSet = getFeaturesWithLabel(negMeta, 'neutral')
