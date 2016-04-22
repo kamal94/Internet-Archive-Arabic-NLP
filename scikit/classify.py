@@ -1,6 +1,24 @@
 import iavw
 import nltk
 import random
+import pickle
+import sys, getopt
+
+classifierFileName = None;
+dataSetFileName = None
+#parse arguments
+try:
+ 	opts, args = getopt.getopt(sys.argv[1:], "c:d:", ["classifier=","data="])
+except getopt.GetoptError:
+	print('classify.py -c <classifier> -d <dataSet>')
+
+#test for argument existance
+for opt, arg in opts:
+  if opt in ("-c", "--classifier"):
+     classifierFileName = arg
+  if opt in ("-d", "--data"):
+     dataSetFileName = arg
+
 
 
 def proccessText( text: str, removePhrases: list):
@@ -66,18 +84,42 @@ def getFeaturesWithLabel(metadata:dict, label:str):
 		for cleanedMeta in [cleanMetadata(item) 
 		for item in metadata ]]]
 
+if dataSetFileName==None:
+	posMeta  = iavw.readMetaTextInDirectory("data/metadata/ISIS")
+	negMeta = iavw.readMetaTextInDirectory("data/metadata/non-isis")
 
-posMeta  = iavw.readMetaTextInDirectory("data/metadata/ISIS")
-negMeta = iavw.readMetaTextInDirectory("data/metadata/non-isis")
+	posSet = getFeaturesWithLabel(posMeta, 'isis')
+	negSet = getFeaturesWithLabel(negMeta, 'neutral')
 
-posSet = getFeaturesWithLabel(posMeta, 'isis')
-negSet = getFeaturesWithLabel(negMeta, 'neutral')
+	totalSet =  posSet + negSet
+else:
+	print("pre-loading dataset from " + dataSetFileName)
+	dataSetFile = open(dataSetFileName, 'rb')
+	totalSet = pickle.load(dataSetFile)
+	dataSetFile.close()
 
-totalSet =  posSet + negSet
+
 random.shuffle(totalSet)
 train_set = totalSet[:int(len(totalSet)/2)+1]
 test_set = totalSet[int(len(totalSet)/2)+1:]
 
-classifier = nltk.NaiveBayesClassifier.train(train_set)
+if classifierFileName==None:
+	classifier = nltk.NaiveBayesClassifier.train(train_set)
+else:
+	print("pre-loading classifier from " + classifierFileName)
+	classifierFile = open(classifierFileName, 'rb')
+	classifier = pickle.load(classifierFile)
+	classifierFile.close()
+
 classifier.show_most_informative_features(50)
-print(nltk.classify.accuracy(classifier, test_set))
+print("classifier accuracy: " + str(nltk.classify.accuracy(classifier, test_set)))
+
+print("Saving classifier")
+fi = open("classifier.pickle", 'wb')
+pickle.dump(classifier, fi)
+fi.close()
+
+print("savind dataset")
+fi = open("dataset.pickle", 'wb')
+pickle.dump(totalSet, fi)
+fi.close()
